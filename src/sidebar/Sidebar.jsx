@@ -1,9 +1,9 @@
 import React from "react";
-import { Drawer, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { NavLink } from "react-router-dom"; 
-import { FaHome, FaUser, FaCog, FaBell, FaChartBar, FaClipboardList, FaUsers, FaEnvelope, FaBuilding } from "react-icons/fa";
+import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, IconButton } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { FaHome, FaUser, FaCog, FaBell, FaChartBar, FaClipboardList, FaUsers, FaEnvelope, FaBuilding, FaBars } from "react-icons/fa";
 
-const Sidebar = ({ sidebarOpen }) => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const menuItems = [
     { icon: <FaHome />, label: "Dashboard", path: "/" },
     { icon: <FaUser />, label: "Business", path: "/business" },
@@ -14,8 +14,7 @@ const Sidebar = ({ sidebarOpen }) => {
     { icon: <FaClipboardList />, label: "Appointment", path: "/appointment" },
     { icon: <FaUsers />, label: "Marketing Campaign", path: "/marketing" },
     { icon: <FaEnvelope />, label: "Subscription", path: "/subscription" },
-    { icon: <FaEnvelope />, label: "Report", path: "/Report" },
-
+    { icon: <FaEnvelope />, label: "Report", path: "/report" },
   ];
 
   return (
@@ -24,6 +23,7 @@ const Sidebar = ({ sidebarOpen }) => {
       sx={{
         width: sidebarOpen ? 200 : 60,
         flexShrink: 0,
+        display: { xs: "none", sm: "block" }, // Hide sidebar on mobile
         "& .MuiDrawer-paper": {
           width: sidebarOpen ? 200 : 60,
           transition: "width 0.3s",
@@ -32,13 +32,20 @@ const Sidebar = ({ sidebarOpen }) => {
           color: "white",
           paddingTop: "10px",
           textAlign: "left",
+          
         },
       }}
     >
-      {/* Company Logo */}
-      <div style={{ padding: "10px 20px", fontSize: "24px", fontWeight: "bold", display: "flex", alignItems: "center" }}>
+      {/* Sidebar Header (Logo + Toggle Button) */}
+      <div style={{ padding: "10px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <FaBuilding size={40} color="white" />
         {sidebarOpen && <p style={{ marginLeft: "10px", marginBottom: 0 }}>busitron</p>}
+        <IconButton
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          sx={{ color: "white", marginLeft: "auto", display: { xs: "block", sm: "none" } }} // Show only on mobile
+        >
+          <FaBars />
+        </IconButton>
       </div>
 
       {/* Sidebar Navigation */}
